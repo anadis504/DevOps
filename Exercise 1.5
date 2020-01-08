@@ -1,0 +1,20 @@
+$ docker container run -it ubuntu /bin/bash    <----- command I used to run commands inside a Ubuntu container
+root@742f62ba1f1b:/# sh -c 'echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website;' <--- running the process
+Input website:
+helsinki.fi       <------ typing the website adress
+Searching..
+sh: 1: curl: not found
+root@742f62ba1f1b:/# apt-get update; apt-get install curl     <------ the command used to install curl inside the container
+...
+root@742f62ba1f1b:/# sh -c 'echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website;'  <--- running the process again with installed curl
+Input website:
+helsinki.fi
+Searching..
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="http://www.helsinki.fi/">here</a>.</p>
+</body></html>
+root@742f62ba1f1b:/# 
