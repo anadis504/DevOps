@@ -1,0 +1,48 @@
+Script:
+
+#!/bin/bash
+
+set +x
+
+while true
+do
+ echo "Input website:"
+ read website
+ echo "Searching.."
+ sleep 1
+ curl http://$website
+done
+
+***
+
+Dockerfile:
+
+FROM ubuntu:latest                   <-------- using ubuntu:latest since :16.04 had apt-utils uninstalled (message: debconf: delaying package configuration, since apt-utils is not installed)
+
+WORKDIR /mydir
+RUN apt-get update && apt-get install -y curl
+
+COPY script.sh .
+
+CMD ["./script.sh"]
+
+***
+Command Line:
+
+$ sudo docker build -t curler .       <--------- command for building the image with nametag curler (-t)
+...
+Successfully built aed47728059f
+Successfully tagged curler:latest
+$ sudo docker run -it curler          <--------- command for running the curler container with -it flag for interacting with the container through the command line
+Input website:
+helsinki.fi
+Searching..
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="http://www.helsinki.fi/">here</a>.</p>
+</body></html>
+Input website:
+
