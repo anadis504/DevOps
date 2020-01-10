@@ -1,0 +1,21 @@
+ GNU nano 2.9.3                      Dockerfile                                
+
+FROM ubuntu:16.04
+
+RUN apt-get update && apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
+RUN apt install -y nodejs
+
+COPY . .
+EXPOSE 8000
+
+RUN npm install
+
+CMD ["npm", "start"]
+
+
+***
+
+Commands:
+$ sudo docker build -t backend .
+$ sudo docker run -v $(pwd)/logs.txt:/logs.txt -p 8000:8000 backend
